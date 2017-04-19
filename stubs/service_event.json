@@ -1,0 +1,7 @@
+{
+    "host" :"server01",
+    "service" : "test_checker",
+    "servicestatetype" :  "hard",
+    // ("OK", "WARNING", "UNKNOWN", or "CRITICAL").
+    "servicestate": "ERROR"
+}

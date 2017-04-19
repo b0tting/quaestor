@@ -41,7 +41,7 @@ except ValidationFailure as v:
 except ConnectionError as q:
     print("Could not connect to " + args.QUAESTOR)
 except HTTPError as e:
-    print("Got a HTTP error on sending event state: " + e.request)
+    print("Got a HTTP error on sending event state: " + e.message)
 except ValueError as e:
     print("Quaestor result was incorrect: " + e.message)
 except Exception as e:

@@ -1,13 +1,15 @@
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
-# put your own credentials here
-ACCOUNT_SID = '<AccountSid>'
-AUTH_TOKEN = '<AuthToken>'
 
-client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+class TwilioHandler:
 
-client.messages.create(
-    to='<ToNumber>',
-    from_='<FromNumber>',
-    body='<BodyText>',
-)
+    def __init__(self, SID, AUTH, number):
+        self.client = Client(SID, AUTH)
+        self.number_from = number
+
+    def handle_event(self, text, number):
+        self.client.messages.create(
+            to=number,
+            from_=self.number_from,
+            body=text,
+        )

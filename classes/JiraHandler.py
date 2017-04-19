@@ -6,7 +6,7 @@ import pytz
 import requests
 from dateutil import parser
 
-class JiraParser:
+class JiraHandler:
 
     jiraapi = "/rest/api/2/search/"
     jiraissueapi = "/rest/api/2/issue/"
@@ -83,6 +83,7 @@ class JiraParser:
             "issuetype":{"name":issuetype},
         }
         result = self.post_jira_rest_payload(payload)
+        print(result)
         return result["key"]
 
 

@@ -1,14 +1,9 @@
 import ConfigParser
 import socket
-
 import sys
 import traceback
-from pprint import pprint
-
 import logging
-
 import netifaces
-
 import flask
 from flask import Flask, jsonify
 from flask import request
@@ -73,5 +68,5 @@ def flask_show_state():
 
 if __name__ == '__main__':
     logger.error("Quaestor started")
-    app.run(port = qm.get_quaestor_param("port"))
+    app.run(host="0.0.0.0",threaded=True,port = qm.get_quaestor_param("port"))
 

@@ -1,9 +1,12 @@
+#!/usr/bin/python
 import argparse
 import validators
 import requests
 from requests import ConnectionError
 from requests import HTTPError
 from validators import ValidationFailure
+
+baseurl = "/rest/event/service"
 
 parser = argparse.ArgumentParser(description='Forward a Nagios Event to a given Quaestor instance')
 parser.add_argument('QUAESTOR', help='A queastor server to call, for example "http://127.0.0.1"')
@@ -28,6 +31,9 @@ if verbose:
     print("Target host: " + args.QUAESTOR)
 
 try:
+    if(args.QUAESTOR.find(baseurl) == -1):
+        args.QUAESTOR += baseurl
+
     validators.url(args.QUAESTOR)
     result = requests.post(args.QUAESTOR, json=q_payload)
     result.raise_for_status()
@@ -36,6 +42,7 @@ try:
         print(result.text)
     if not "state" in json or json["state"] != "ok":
         raise ValueError("Got an unknown or not OK answer from the Quaestor host - " + result.text)
+    print("Event send succesfully - id " + json["id"])
 except ValidationFailure as v:
     print(args.QUAESTOR + " was not a valid URL")
 except ConnectionError as q:

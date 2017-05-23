@@ -1,0 +1,14 @@
+[JIRA]
+user : jiralogin
+password : jirapassword
+url : jirabaseurl
+newtime : 180
+
+[twilio]
+sid: twiliosid
+auth: twilioauth
+phonenumber: twiliophonenumber
+
+[engineers]
+phonenumbers: comma_seperated_list_of_phone_numbers
+

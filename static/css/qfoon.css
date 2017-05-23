@@ -1,0 +1,47 @@
+        body {
+            font-size: 240%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .navbar {
+            background-image: url("../img/stripe.png")
+        }
+
+        .navbar-big {
+            font-size: 140%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: white;
+            font-weight: 800;
+        }
+
+        .transparent {
+            background-image: none;
+            background-color: Transparent;
+            color: white;
+            font-size: 140%;
+        }
+
+        .pad-left {
+            padding-left: 5%;
+        }
+
+        .info-box-text, .info-box-number {
+            font-size: 140%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .push-wrapper {
+            padding:3%;
+        }
+
+        .big-clock {
+            font-size: 220%;
+        }
+
+        .icon-columns {
+            text-align: center;
+            width: 1px;
+        }

@@ -2,14 +2,18 @@ import datetime
 import os
 import shutil
 
+import logging
 import pytz
 import requests
 from dateutil import parser
+
+logger = logging.getLogger("quaestor")
 
 class JiraHandler:
 
     jiraapi = "/rest/api/2/search/"
     jiraissueapi = "/rest/api/2/issue/"
+    jirabrowse = "/browse"
 
     # Niet okay! Zoveel parameters!
     def __init__(self, baseurl, username, password, recentminutes = 120):
@@ -31,8 +35,21 @@ class JiraHandler:
         return response.json()
 
     def post_jira_rest_payload(self, payload):
-        response = self.session.post(self.jirabase + self.jiraissueapi, json=payload)
-        return response.json()
+        result = False
+        try:
+            response = self.session.post(self.jirabase + self.jiraissueapi, json=payload)
+            result = response.json()
+            if "errors" in result:
+                logger.error("Got error in sending JIRA message for payload: ")
+                logger.error(payload)
+                for error in result["errors"]:
+                    logger.error(error + " - " + result["errors"][error])
+        except Exception as e:
+            logger.error("Got transport error in sending JIRA message for payload: " + e.message)
+        return result
+
+    def get_ticket_url(self, ticketnumber):
+        return self.jirabase + self.jirabrowse + "/" + ticketnumber
 
 
     def get_jira_data(self, query, teamDict):
@@ -73,7 +90,7 @@ class JiraHandler:
 
         return returnimage
 
-
+## https://developer.atlassian.com/jiradev/jira-apis/jira-rest-apis/jira-rest-api-tutorials/jira-rest-api-example-create-issue
     def insert_new_ticket(self, project_key, summary, description, issuetype):
         payload = {}
         payload["fields"] = {
@@ -81,9 +98,9 @@ class JiraHandler:
             "summary": summary,
             "description": description,
             "issuetype":{"name":issuetype},
+            "customfield_10151" : [{"value":"Acceptance"}]
         }
         result = self.post_jira_rest_payload(payload)
-        print(result)
         return result["key"]
 
 

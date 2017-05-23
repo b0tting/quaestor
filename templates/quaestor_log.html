@@ -1,0 +1,65 @@
+{% include 'qfoon_header.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <!-- Main content -->
+    <section class="content">
+
+          <table id="jira_table" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Time</th>
+              <th>Message</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for qle in entries %}
+            <tr>
+                <td>{{ qle.time }}</td>
+                <td>{{  qle.msg }}</td>
+            </tr>
+        {%  endfor %}
+            </tbody>
+          </table>
+
+
+      <!-- Your Page Content Here -->
+        </ul>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+
+    </div>
+    <!-- Default to the left -->
+    You are {{  clientip }} - find me at {{ ip }}</strong>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 2.2.0 -->
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url_for('static', filename='js/app.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
+<script language="JavaScript">
+
+  $( document ).ready(function() {
+            startTime();
+            table = $('#jira_table').DataTable()
+      })
+
+
+</script>
+</body>
+</html>
